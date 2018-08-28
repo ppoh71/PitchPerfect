@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ViewController: UIViewController {
+class RecordViewController: UIViewController {
 
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordLabel: UILabel!
     
+    var audioURL = "Sender AudioURL"
     enum recordState{ case record, stop, pause}
     var recordStartText: String = "Tap Microphone to Record";
     var recordStopText: String = "Now Recording";
@@ -34,12 +36,12 @@ class ViewController: UIViewController {
     
     @IBAction func recordAudio(_ sender: Any) {
         print("mic button pressed")
-        
         recordingStatus(recordState.record)
     }
     
     @IBAction func stopRecording(_ sender: Any) {
         recordingStatus(recordState.stop)
+        performSegue(withIdentifier: "PlaybackSegue", sender: audioURL)
     }
     
     func recordingStatus(_ state: recordState ){
@@ -67,5 +69,14 @@ class ViewController: UIViewController {
             self.micButton.alpha = 0.4
         })
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PlaybackSegue" {
+            let playbackVC = segue.destination as! PitchViewController
+            let audioURL = sender as! String
+            playbackVC.audioURL = audioURL
+        }
+    }
+    
 }
 

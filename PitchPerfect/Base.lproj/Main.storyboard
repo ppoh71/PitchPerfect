@@ -7,13 +7,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Record View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PitchPerfect" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RecordViewController" customModule="PitchPerfect" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,11 +69,172 @@
                         <outlet property="micButton" destination="akB-P0-Ust" id="qXp-7o-LTf"/>
                         <outlet property="recordLabel" destination="F7c-tw-hKg" id="Rht-ww-p5d"/>
                         <outlet property="stopButton" destination="Lp7-M5-ctY" id="HTI-vW-ESI"/>
+                        <segue destination="pcf-Ys-i9P" kind="show" identifier="PlaybackSegue" id="STY-tY-oLx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="856.79999999999995" y="-443.02848575712147"/>
+        </scene>
+        <!--Pitch View Controller-->
+        <scene sceneID="3im-Ga-hPc">
+            <objects>
+                <viewController id="pcf-Ys-i9P" customClass="PitchViewController" customModule="PitchPerfect" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qax-4u-Bqx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press a sound fx button" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zy8-8o-Ubu">
+                                <rect key="frame" x="97" y="84" width="181" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JWk-8g-Exu">
+                                <rect key="frame" x="60" y="124" width="255" height="443"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6oM-FA-FIt">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="142.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qed-EG-8hb" userLabel="slowButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="142.5"/>
+                                                <state key="normal" image="slow2x-iphone"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="4La-hd-7BF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-gf-z0b" userLabel="fastButton">
+                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="142.5"/>
+                                                <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <state key="normal" image="fast2x-iphone"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="6Bo-ei-XLg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-Fz-NjY">
+                                        <rect key="frame" x="0.0" y="150.5" width="255" height="142"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-fh-RGN" userLabel="reverbButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="142"/>
+                                                <state key="normal" image="reverb"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Hl0-TZ-bBO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5P-Kk-PkU" userLabel="echoButton">
+                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="142"/>
+                                                <state key="normal" image="echo"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="CYJ-CR-bTq"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="tfC-aA-fl8">
+                                        <rect key="frame" x="0.0" y="300.5" width="255" height="142.5"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLb-Sx-fAx" userLabel="chipmunkButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="142.5"/>
+                                                <state key="normal" image="chipmunk2x-iphone"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="LaU-V9-gmf"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J66-yj-xZS" userLabel="vaderButton">
+                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="142.5"/>
+                                                <state key="normal" image="darthvader2x-iphone"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="afM-ZU-2Oj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-FP-K6a">
+                                <rect key="frame" x="162.5" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="PpI-Ag-yhq"/>
+                                    <constraint firstAttribute="height" constant="50" id="o5F-GC-hPA"/>
+                                </constraints>
+                                <state key="normal" image="microphone2x-iphone"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="stopAction:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="f4Q-z7-Svn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ieh-KQ-sD2">
+                                <rect key="frame" x="145" y="642" width="86" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ieh-KQ-sD2" firstAttribute="top" secondItem="6OE-FP-K6a" secondAttribute="bottom" constant="5" id="9xy-ab-7EQ"/>
+                            <constraint firstItem="Ieh-KQ-sD2" firstAttribute="centerX" secondItem="qax-4u-Bqx" secondAttribute="centerX" id="BGy-JP-qvn"/>
+                            <constraint firstItem="K0w-eK-0ri" firstAttribute="bottom" secondItem="6OE-FP-K6a" secondAttribute="bottom" constant="30" id="C0S-3f-gUI"/>
+                            <constraint firstItem="JWk-8g-Exu" firstAttribute="leading" secondItem="K0w-eK-0ri" secondAttribute="leading" constant="60" id="KgG-Tp-rq8"/>
+                            <constraint firstItem="Zy8-8o-Ubu" firstAttribute="centerX" secondItem="qax-4u-Bqx" secondAttribute="centerX" id="Nj3-y5-Usg"/>
+                            <constraint firstAttribute="trailing" secondItem="JWk-8g-Exu" secondAttribute="trailing" constant="60" id="PeF-sX-Hql"/>
+                            <constraint firstItem="JWk-8g-Exu" firstAttribute="top" secondItem="K0w-eK-0ri" secondAttribute="top" constant="60" id="abd-6X-Lx0"/>
+                            <constraint firstAttribute="bottom" secondItem="JWk-8g-Exu" secondAttribute="bottom" constant="100" id="if2-GB-qY2"/>
+                            <constraint firstItem="6OE-FP-K6a" firstAttribute="centerX" secondItem="qax-4u-Bqx" secondAttribute="centerX" id="jrg-9J-a6n"/>
+                            <constraint firstItem="Zy8-8o-Ubu" firstAttribute="top" secondItem="K0w-eK-0ri" secondAttribute="top" constant="20" id="qcc-bz-xU5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="K0w-eK-0ri"/>
+                    </view>
+                    <connections>
+                        <outlet property="chipmunkButton" destination="sLb-Sx-fAx" id="bS7-4E-U61"/>
+                        <outlet property="echoButton" destination="y5P-Kk-PkU" id="XIS-6W-LOi"/>
+                        <outlet property="fastButton" destination="dBc-gf-z0b" id="HCi-PQ-JVi"/>
+                        <outlet property="reverbButton" destination="mqT-fh-RGN" id="Yno-ag-C9s"/>
+                        <outlet property="slowButton" destination="qed-EG-8hb" id="yEx-HF-Dqg"/>
+                        <outlet property="vaderButton" destination="J66-yj-xZS" id="io7-BT-9vs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vWB-Rl-uJJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="-435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6NC-Sl-m2q">
@@ -94,7 +256,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chipmunk2x-iphone" width="200" height="200"/>
+        <image name="darthvader2x-iphone" width="200" height="200"/>
+        <image name="echo" width="160" height="160"/>
+        <image name="fast2x-iphone" width="200" height="200"/>
         <image name="microphone2x-iphone" width="200" height="200"/>
+        <image name="reverb" width="160" height="160"/>
+        <image name="slow2x-iphone" width="200" height="200"/>
         <image name="stop2x-iphone" width="100" height="100"/>
     </resources>
 </document>
