@@ -227,6 +227,7 @@
                         <outlet property="chipmunkButton" destination="sLb-Sx-fAx" id="bS7-4E-U61"/>
                         <outlet property="echoButton" destination="y5P-Kk-PkU" id="XIS-6W-LOi"/>
                         <outlet property="fastButton" destination="dBc-gf-z0b" id="HCi-PQ-JVi"/>
+                        <outlet property="fxLabel" destination="Zy8-8o-Ubu" id="RGt-HG-6ad"/>
                         <outlet property="reverbButton" destination="mqT-fh-RGN" id="Yno-ag-C9s"/>
                         <outlet property="slowButton" destination="qed-EG-8hb" id="yEx-HF-Dqg"/>
                         <outlet property="vaderButton" destination="J66-yj-xZS" id="io7-BT-9vs"/>
