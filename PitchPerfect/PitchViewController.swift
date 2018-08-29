@@ -32,9 +32,6 @@ class PitchViewController: UIViewController {
     }
     
     @IBAction func fxPressed(_ sender: UIButton){
-        print("fx pressed")
-        print(sender.tag)
-        
         switch(SoundFx(rawValue: sender.tag)!){
         case .slow:
             print("play slow")
@@ -83,7 +80,7 @@ class PitchViewController: UIViewController {
         let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length))
         try! audioFile.read(into: buffer!, frameCount: AVAudioFrameCount(audioFile.length) )
         
-        //attach and connect audioNodes for fx
+        //attach and connect audioNodes by fx type
         switch fx {
         case .slow, .fast, .chipmunk, .vader:
             let pitchNode = AVAudioUnitTimePitch()
@@ -104,20 +101,8 @@ class PitchViewController: UIViewController {
             echoNode.loadFactoryPreset(.multiEcho1)
             connectAudioNodes(fxNode: echoNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
         }
-        
-        
-        //assign audio effects to engine
-       // audioEngine.attach(pitchNode)
-       // audioEngine.attach(echoNode)
-       // audioEngine.connect(audioPlayerNode, to: echoNode, format: audioFile.processingFormat)
-       // audioEngine.connect(echoNode, to: audioEngine.mainMixerNode, format: buffer?.format)
+                
         audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[], completionHandler: nil)
-        //audioPlayerNode.scheduleBuffer(buffer!, at: nil, options: AVAudioPlayerNodeBufferOptions.loops, completionHandler: nil)
-        
-        //if audioEngine.isRunning {
-        //    return
-        //}
-        
         audioEngine.prepare()
 
         do {
@@ -127,7 +112,7 @@ class PitchViewController: UIViewController {
             return
         }
 
-         audioPlayerNode.play()
+        audioPlayerNode.play()
     }
     
     @objc func stopAudio(){
