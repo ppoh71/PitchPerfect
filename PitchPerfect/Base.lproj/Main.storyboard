@@ -93,7 +93,7 @@
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JWk-8g-Exu">
                                 <rect key="frame" x="60" y="124" width="255" height="443"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6oM-FA-FIt">
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6oM-FA-FIt">
                                         <rect key="frame" x="0.0" y="0.0" width="255" height="142.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qed-EG-8hb" userLabel="slowButton">

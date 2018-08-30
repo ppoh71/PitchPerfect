@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class PitchViewController: UIViewController {
+class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var fastButton: UIButton!
     @IBOutlet weak var slowButton: UIButton!
     @IBOutlet weak var reverbButton: UIButton!
@@ -19,13 +19,13 @@ class PitchViewController: UIViewController {
     @IBOutlet weak var fxLabel: UILabel!
     
     var audioURL:URL!
-    var player: AVAudioPlayer?
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: Timer!
+    var activeButton: UIButton!
     
-    enum SoundFx: Int{ case slow=0, fast, reverb, echo, chipmunk, vader}
+    enum SoundFx: Int{ case slow = 0, fast, reverb, echo, chipmunk, vader}
     
     @IBAction func stopAction(_ sender: Any) {
         print("stop pressed")
@@ -35,17 +35,30 @@ class PitchViewController: UIViewController {
         switch(SoundFx(rawValue: sender.tag)!){
         case .slow:
             print("play slow")
-            playAudio(rate: 0.5, pitch: nil, fx: .slow)
+            audioPlayOrStop(rate: 0.5, pitch: nil, fx: .slow, button: sender)
         case .fast:
-            playAudio(rate: 1.5, pitch: nil, fx: .fast)
+            audioPlayOrStop(rate: 1.5, pitch: nil, fx: .fast, button: sender)
         case .reverb:
-            playAudio(rate: nil, pitch: nil, fx: .reverb)
+            audioPlayOrStop(rate: nil, pitch: nil, fx: .reverb, button:sender)
         case .echo:
-            playAudio(rate: nil, pitch: nil, fx: .echo)
+            audioPlayOrStop(rate: nil, pitch: nil, fx: .echo, button:sender)
         case .chipmunk:
-            playAudio(rate: nil, pitch: 1000, fx: .chipmunk)
+            audioPlayOrStop(rate: nil, pitch: 1000, fx: .chipmunk, button:sender)
         case .vader:
-            playAudio(rate: nil, pitch: -1000, fx: .vader)
+            audioPlayOrStop(rate: nil, pitch: -1000, fx: .vader, button:sender)
+        }
+    }
+    
+    func audioPlayOrStop(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
+        if button.alpha == 1{
+            playAudio(rate: rate, pitch: pitch, fx: fx, button: button)
+            button.alpha = 0.6
+            activeButton = button
+            print("alpha 6")
+        }else{
+            stopAudio("stoppen from BUTTON");
+            button.alpha = 1
+            activeButton = UIButton()
         }
     }
     
@@ -56,27 +69,16 @@ class PitchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         print("var on appear: \(audioURL)")
-        prepareAudio()
     }
     
-    func prepareAudio(){
-        do {
-            audioFile = try AVAudioFile(forReading: audioURL as URL)
-            print("prepare audio success \(audioFile)")
-        } catch {
-            //let error = String(describing: error)
-            //fxLabel.text = error
-        }
-    }
-    
-    func playAudio(rate: Float?, pitch: Float?, fx: SoundFx){
+    func playAudio(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
         audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
         audioPlayerNode.volume = 1
         audioEngine.attach(audioPlayerNode)
         
         //get audiofile and set playback buffer
-        let audioFile = try! AVAudioFile(forReading: audioURL)
+        audioFile = try! AVAudioFile(forReading: audioURL)
         let buffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length))
         try! audioFile.read(into: buffer!, frameCount: AVAudioFrameCount(audioFile.length) )
         
@@ -91,18 +93,29 @@ class PitchViewController: UIViewController {
                 pitchNode.rate = rate
             }
             connectAudioNodes(fxNode: pitchNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
+            
         case .reverb:
             let reverbNode = AVAudioUnitReverb()
             reverbNode.loadFactoryPreset(AVAudioUnitReverbPreset.cathedral)
             reverbNode.wetDryMix = 50
             connectAudioNodes(fxNode: reverbNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
+            
         case .echo:
             let echoNode = AVAudioUnitDistortion()
             echoNode.loadFactoryPreset(.multiEcho1)
             connectAudioNodes(fxNode: echoNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
         }
-                
-        audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[], completionHandler: nil)
+        audioPlayerNode.stop()
+        audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[]){
+            /* for udacity review: as fare as this is a completion handler, looks like it gets called,
+             right after sound is played. So i use a direct func call and skip skip the time calculation via length, sampleTime, Bitrate...
+             Not that i am too lazy, but its less complexety..
+             */
+            self.stopAudio("stopped from buffer")
+            DispatchQueue.main.async { // Correct
+                self.toggleButton(button: button)
+            }
+        }
         audioEngine.prepare()
 
         do {
@@ -115,8 +128,16 @@ class PitchViewController: UIViewController {
         audioPlayerNode.play()
     }
     
-    @objc func stopAudio(){
-        
+    @objc func stopAudio(_ str: String){
+        print(str)
+        //audioEngine = AVAudioEngine()
+        audioPlayerNode.reset()
+    }
+    
+
+    
+    func toggleButton(button: UIButton){
+        button.alpha = 1
     }
     
     func connectAudioNodes(fxNode: AVAudioNode,audioPlayerNode: AVAudioPlayerNode,  buffer: AVAudioPCMBuffer? ) {
