@@ -198,7 +198,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="stopAction:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="f4Q-z7-Svn"/>
+                                    <action selector="micButtonPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Bza-9D-Z8p"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ieh-KQ-sD2">
@@ -235,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWB-Rl-uJJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="-435"/>
+            <point key="canvasLocation" x="1980" y="-507"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6NC-Sl-m2q">

@@ -27,10 +27,10 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     
     enum SoundFx: Int{ case slow = 0, fast, reverb, echo, chipmunk, vader}
     
-    @IBAction func stopAction(_ sender: Any) {
-        print("stop pressed")
+    @IBAction func micButtonPressed(_ sender: Any) {
+        print("dissmiss")
+         _ = navigationController?.popToRootViewController(animated: true)
     }
-    
     @IBAction func fxPressed(_ sender: UIButton){
         switch(SoundFx(rawValue: sender.tag)!){
         case .slow:
@@ -53,11 +53,13 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         if button.alpha == 1{
             playAudio(rate: rate, pitch: pitch, fx: fx, button: button)
             button.alpha = 0.6
+            animateButtons(button: button)
             activeButton = button
             print("alpha 6")
         }else{
             stopAudio("stoppen from BUTTON");
             button.alpha = 1
+            button.layer.removeAllAnimations()
             activeButton = UIButton()
         }
     }
@@ -69,6 +71,7 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         print("var on appear: \(audioURL)")
+        self.navigationItem.setHidesBackButton(true, animated:true);
     }
     
     func playAudio(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
@@ -134,10 +137,17 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayerNode.reset()
     }
     
-
+    func animateButtons(button: UIButton){
+         button.layer.removeAllAnimations()
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
+            button.alpha = 0.1
+            //button.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)
+        })
+    }
     
     func toggleButton(button: UIButton){
         button.alpha = 1
+        button.layer.removeAllAnimations()
     }
     
     func connectAudioNodes(fxNode: AVAudioNode,audioPlayerNode: AVAudioPlayerNode,  buffer: AVAudioPCMBuffer? ) {
