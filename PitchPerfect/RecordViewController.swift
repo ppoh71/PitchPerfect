@@ -31,6 +31,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         stopButton.alpha = 0.1
         stopButton.isEnabled = false
         recordLabel.text = recordStartText
+        self.navigationItem.setHidesBackButton(true, animated:true);
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,16 +56,17 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = "recordedAudio.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
-        let settings = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
-                        AVEncoderBitRateKey: 16,
+        let settings = [
+                        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+                        AVEncoderBitRateKey: 256000,
                         AVNumberOfChannelsKey: 2,
                         AVSampleRateKey: 44100.0] as [String : Any]
        
         let recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
             try recordingSession.setActive(true)
-            try! audioRecorder = AVAudioRecorder(url: filePath!, settings: settings)
+            try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
             print("record 3")
             recordingSession.requestRecordPermission() { [unowned self] allowed in
                 DispatchQueue.main.async {

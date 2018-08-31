@@ -17,6 +17,7 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var chipmunkButton: UIButton!
     @IBOutlet weak var vaderButton: UIButton!
     @IBOutlet weak var fxLabel: UILabel!
+    @IBOutlet weak var micButton: GlobalButton!
     
     var audioURL:URL!
     var audioFile:AVAudioFile!
@@ -27,10 +28,6 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     
     enum SoundFx: Int{ case slow = 0, fast, reverb, echo, chipmunk, vader}
     
-    @IBAction func micButtonPressed(_ sender: Any) {
-        print("dissmiss")
-         _ = navigationController?.popToRootViewController(animated: true)
-    }
     @IBAction func fxPressed(_ sender: UIButton){
         switch(SoundFx(rawValue: sender.tag)!){
         case .slow:
@@ -49,15 +46,21 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    @IBAction func micButtonPressed(_ sender: Any) {
+        stopAudio(fromButton: true)
+        animateButtons(button: micButton)
+        _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
     func audioPlayOrStop(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
         if button.alpha == 1{
             playAudio(rate: rate, pitch: pitch, fx: fx, button: button)
             button.alpha = 0.6
             animateButtons(button: button)
             activeButton = button
-            print("alpha 6")
+            print("BUTTON alpha=1 - playadio")
         }else{
-            stopAudio("stoppen from BUTTON");
+            stopAudio(fromButton: true);
             button.alpha = 1
             button.layer.removeAllAnimations()
             activeButton = UIButton()
@@ -70,14 +73,13 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("var on appear: \(audioURL)")
         self.navigationItem.setHidesBackButton(true, animated:true);
     }
     
     func playAudio(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
         audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
-        audioPlayerNode.volume = 1
+        
         audioEngine.attach(audioPlayerNode)
         
         //get audiofile and set playback buffer
@@ -108,15 +110,16 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
             echoNode.loadFactoryPreset(.multiEcho1)
             connectAudioNodes(fxNode: echoNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
         }
-        audioPlayerNode.stop()
+        //audioPlayerNode.stop()
         audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[]){
-            /* for udacity review: as fare as this is a completion handler, looks like it gets called,
-             right after sound is played. So i use a direct func call and skip skip the time calculation via length, sampleTime, Bitrate...
-             Not that i am too lazy, but its less complexety..
+            /* for udacity review: this is a completion handler gets called when sounds finished playing. as expected
+             So i use a direct method call and skip skip the time calculation via length, sampleTime, Bitrate...
+             scheduleBuffer(file... seems to call it right away
              */
-            self.stopAudio("stopped from buffer")
-            DispatchQueue.main.async { // Correct
+            DispatchQueue.main.async {
+                //self.stopAudio(fromButton: false) // no need to call stop, scheduleBuffer resets buffer and plays the new sound
                 self.toggleButton(button: button)
+                print("stopped from buffer/ no stop fx gets called")
             }
         }
         audioEngine.prepare()
@@ -127,27 +130,36 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
             print("nope start engine")
             return
         }
-
+        audioPlayerNode.volume = 1
         audioPlayerNode.play()
     }
     
-    @objc func stopAudio(_ str: String){
-        print(str)
-        //audioEngine = AVAudioEngine()
-        audioPlayerNode.reset()
+    @objc func stopAudio(fromButton: Bool){
+        //stop only from stopButton,
+        if fromButton == true {
+            if let audioEngine = audioEngine{
+                if let audioPlayerNode = audioPlayerNode{
+                     print("stop audio from BUTTIN")
+                    audioPlayerNode.reset()
+                    audioEngine.stop()
+                    audioEngine.reset()
+                }
+            }
+        }
     }
     
     func animateButtons(button: UIButton){
-         button.layer.removeAllAnimations()
+        button.layer.removeAllAnimations()
         UIView.animate(withDuration: 0.4, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
             button.alpha = 0.1
-            //button.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)
+            button.transform = CGAffineTransform(scaleX: 0.875, y: 0.86)
         })
     }
     
     func toggleButton(button: UIButton){
         button.alpha = 1
         button.layer.removeAllAnimations()
+        button.transform = CGAffineTransform(scaleX: 1, y: 1)
     }
     
     func connectAudioNodes(fxNode: AVAudioNode,audioPlayerNode: AVAudioPlayerNode,  buffer: AVAudioPCMBuffer? ) {

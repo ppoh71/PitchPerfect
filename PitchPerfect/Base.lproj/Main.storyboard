@@ -19,19 +19,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akB-P0-Ust" userLabel="MicButton">
-                                <rect key="frame" x="137" y="283" width="100" height="100"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akB-P0-Ust" userLabel="MicButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
+                                <rect key="frame" x="107" y="253" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="8Wq-a4-koU"/>
-                                    <constraint firstAttribute="height" constant="100" id="mpf-ot-M04"/>
+                                    <constraint firstAttribute="width" constant="160" id="8Wq-a4-koU"/>
+                                    <constraint firstAttribute="height" constant="160" id="mpf-ot-M04"/>
                                 </constraints>
                                 <state key="normal" image="microphone2x-iphone"/>
                                 <connections>
                                     <action selector="recordAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DId-QK-2uo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lp7-M5-ctY" userLabel="stopButton">
-                                <rect key="frame" x="162" y="433" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lp7-M5-ctY" userLabel="stopButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
+                                <rect key="frame" x="162" y="463" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="CIY-Lr-CER"/>
                                     <constraint firstAttribute="height" constant="50" id="Xp0-x1-d7Z"/>
@@ -44,11 +44,11 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dummy Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7c-tw-hKg" userLabel="ReordLabel">
-                                <rect key="frame" x="139.5" y="233" width="96" height="21"/>
+                                <rect key="frame" x="140" y="203" width="95" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hlb-vm-1wB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -84,8 +84,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press a sound fx button" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zy8-8o-Ubu">
-                                <rect key="frame" x="97" y="84" width="181" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zy8-8o-Ubu">
+                                <rect key="frame" x="187.5" y="84" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                                     <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6oM-FA-FIt">
                                         <rect key="frame" x="0.0" y="0.0" width="255" height="142.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qed-EG-8hb" userLabel="slowButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qed-EG-8hb" userLabel="slowButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="142.5"/>
                                                 <state key="normal" image="slow2x-iphone"/>
                                                 <userDefinedRuntimeAttributes>
@@ -108,7 +108,7 @@
                                                     <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="4La-hd-7BF"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-gf-z0b" userLabel="fastButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBc-gf-z0b" userLabel="fastButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="142.5" y="0.0" width="112.5" height="142.5"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <state key="normal" image="fast2x-iphone"/>
@@ -128,7 +128,7 @@
                                     <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-Fz-NjY">
                                         <rect key="frame" x="0.0" y="150.5" width="255" height="142"/>
                                         <subviews>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-fh-RGN" userLabel="reverbButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-fh-RGN" userLabel="reverbButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="142"/>
                                                 <state key="normal" image="reverb"/>
                                                 <userDefinedRuntimeAttributes>
@@ -140,7 +140,7 @@
                                                     <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Hl0-TZ-bBO"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5P-Kk-PkU" userLabel="echoButton">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5P-Kk-PkU" userLabel="echoButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="142.5" y="0.0" width="112.5" height="142"/>
                                                 <state key="normal" image="echo"/>
                                                 <userDefinedRuntimeAttributes>
@@ -157,7 +157,7 @@
                                     <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="tfC-aA-fl8">
                                         <rect key="frame" x="0.0" y="300.5" width="255" height="142.5"/>
                                         <subviews>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLb-Sx-fAx" userLabel="chipmunkButton">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLb-Sx-fAx" userLabel="chipmunkButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="142.5"/>
                                                 <state key="normal" image="chipmunk2x-iphone"/>
                                                 <userDefinedRuntimeAttributes>
@@ -169,7 +169,7 @@
                                                     <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="LaU-V9-gmf"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J66-yj-xZS" userLabel="vaderButton">
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J66-yj-xZS" userLabel="vaderButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
                                                 <rect key="frame" x="142.5" y="0.0" width="112.5" height="142.5"/>
                                                 <state key="normal" image="darthvader2x-iphone"/>
                                                 <userDefinedRuntimeAttributes>
@@ -185,11 +185,11 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-FP-K6a">
-                                <rect key="frame" x="162.5" y="587" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OE-FP-K6a" userLabel="micButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
+                                <rect key="frame" x="147.5" y="567" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="PpI-Ag-yhq"/>
-                                    <constraint firstAttribute="height" constant="50" id="o5F-GC-hPA"/>
+                                    <constraint firstAttribute="width" constant="80" id="PpI-Ag-yhq"/>
+                                    <constraint firstAttribute="height" constant="80" id="o5F-GC-hPA"/>
                                 </constraints>
                                 <state key="normal" image="microphone2x-iphone"/>
                                 <userDefinedRuntimeAttributes>
@@ -201,8 +201,8 @@
                                     <action selector="micButtonPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Bza-9D-Z8p"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ieh-KQ-sD2">
-                                <rect key="frame" x="145" y="642" width="86" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ieh-KQ-sD2">
+                                <rect key="frame" x="188" y="652" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -212,7 +212,7 @@
                         <constraints>
                             <constraint firstItem="Ieh-KQ-sD2" firstAttribute="top" secondItem="6OE-FP-K6a" secondAttribute="bottom" constant="5" id="9xy-ab-7EQ"/>
                             <constraint firstItem="Ieh-KQ-sD2" firstAttribute="centerX" secondItem="qax-4u-Bqx" secondAttribute="centerX" id="BGy-JP-qvn"/>
-                            <constraint firstItem="K0w-eK-0ri" firstAttribute="bottom" secondItem="6OE-FP-K6a" secondAttribute="bottom" constant="30" id="C0S-3f-gUI"/>
+                            <constraint firstItem="K0w-eK-0ri" firstAttribute="bottom" secondItem="6OE-FP-K6a" secondAttribute="bottom" constant="20" id="C0S-3f-gUI"/>
                             <constraint firstItem="JWk-8g-Exu" firstAttribute="leading" secondItem="K0w-eK-0ri" secondAttribute="leading" constant="60" id="KgG-Tp-rq8"/>
                             <constraint firstItem="Zy8-8o-Ubu" firstAttribute="centerX" secondItem="qax-4u-Bqx" secondAttribute="centerX" id="Nj3-y5-Usg"/>
                             <constraint firstAttribute="trailing" secondItem="JWk-8g-Exu" secondAttribute="trailing" constant="60" id="PeF-sX-Hql"/>
@@ -228,6 +228,7 @@
                         <outlet property="echoButton" destination="y5P-Kk-PkU" id="XIS-6W-LOi"/>
                         <outlet property="fastButton" destination="dBc-gf-z0b" id="HCi-PQ-JVi"/>
                         <outlet property="fxLabel" destination="Zy8-8o-Ubu" id="RGt-HG-6ad"/>
+                        <outlet property="micButton" destination="6OE-FP-K6a" id="QQ1-r3-3wk"/>
                         <outlet property="reverbButton" destination="mqT-fh-RGN" id="Yno-ag-C9s"/>
                         <outlet property="slowButton" destination="qed-EG-8hb" id="yEx-HF-Dqg"/>
                         <outlet property="vaderButton" destination="J66-yj-xZS" id="io7-BT-9vs"/>
