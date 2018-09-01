@@ -17,7 +17,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     var recordingSession: AVAudioSession!
     var recordStartText: String = "press mic to record";
-    var recordStopText: String = " .... recording ....";
+    var recordStopText: String = " press stop to finish recording";
     var recordNoPermitText: String = "You have to allow using the Mic";
     var recordFailedText: String = "Recording failed, please try again";
     
