@@ -105,43 +105,12 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-Fz-NjY">
-                                        <rect key="frame" x="0.0" y="163.5" width="255" height="156"/>
-                                        <subviews>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-fh-RGN" userLabel="reverbButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="156"/>
-                                                <state key="normal" image="reverb"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Hl0-TZ-bBO"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5P-Kk-PkU" userLabel="echoButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
-                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="156"/>
-                                                <state key="normal" image="echo"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="CYJ-CR-bTq"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="tfC-aA-fl8">
-                                        <rect key="frame" x="0.0" y="327.5" width="255" height="155.5"/>
+                                        <rect key="frame" x="0.0" y="163.5" width="255" height="156"/>
                                         <subviews>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLb-Sx-fAx" userLabel="chipmunkButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="155.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="156"/>
                                                 <state key="normal" image="chipmunk2x-iphone"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
@@ -153,7 +122,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J66-yj-xZS" userLabel="vaderButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
-                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="155.5"/>
+                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="156"/>
                                                 <state key="normal" image="darthvader2x-iphone"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
@@ -162,6 +131,35 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="afM-ZU-2Oj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dAr-Fz-NjY">
+                                        <rect key="frame" x="0.0" y="327.5" width="255" height="155.5"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-fh-RGN" userLabel="reverbButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="155.5"/>
+                                                <state key="normal" image="reverb"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="Hl0-TZ-bBO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5P-Kk-PkU" userLabel="echoButton" customClass="GlobalButton" customModule="PitchPerfect" customModuleProvider="target">
+                                                <rect key="frame" x="142.5" y="0.0" width="112.5" height="155.5"/>
+                                                <state key="normal" image="echo"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageView.contentMode">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="fxPressed:" destination="pcf-Ys-i9P" eventType="touchUpInside" id="CYJ-CR-bTq"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -230,12 +228,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chipmunk2x-iphone" width="200" height="200"/>
-        <image name="darthvader2x-iphone" width="200" height="200"/>
+        <image name="chipmunk2x-iphone" width="160" height="160"/>
+        <image name="darthvader2x-iphone" width="160" height="160"/>
         <image name="echo" width="160" height="160"/>
-        <image name="fast2x-iphone" width="200" height="200"/>
+        <image name="fast2x-iphone" width="160" height="160"/>
         <image name="microphone2x-iphone" width="200" height="200"/>
         <image name="reverb" width="160" height="160"/>
-        <image name="slow2x-iphone" width="200" height="200"/>
+        <image name="slow2x-iphone" width="160" height="160"/>
     </resources>
 </document>

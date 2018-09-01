@@ -130,7 +130,6 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
             DispatchQueue.main.async {
                 //self.stopAudio(fromButton: false) // no need to call stop, scheduleBuffer resets buffer and plays the new sound
                 button.resetButton()
-                print("stopped from buffer/ no stop fx gets called")
             }
         }
         audioEngine.prepare()

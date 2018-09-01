@@ -36,7 +36,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func recordAudio(_ sender: UIButton) {
        sender.isSelected = !sender.isSelected
-        
+        //one button for record/stop
         if sender.isSelected{
             recordAudio()
             recordingStatus(RecordState.record)
