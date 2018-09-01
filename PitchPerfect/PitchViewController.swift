@@ -10,15 +10,15 @@ import UIKit
 import AVFoundation
 
 class PitchViewController: UIViewController, AVAudioPlayerDelegate {
-    @IBOutlet weak var fastButton: UIButton!
-    @IBOutlet weak var slowButton: UIButton!
-    @IBOutlet weak var reverbButton: UIButton!
-    @IBOutlet weak var echoButton: UIButton!
-    @IBOutlet weak var chipmunkButton: UIButton!
-    @IBOutlet weak var vaderButton: UIButton!
-    @IBOutlet weak var fxLabel: UILabel!
+    @IBOutlet weak var fastButton: GlobalButton!
+    @IBOutlet weak var slowButton: GlobalButton!
+    @IBOutlet weak var reverbButton: GlobalButton!
+    @IBOutlet weak var echoButton: GlobalButton!
+    @IBOutlet weak var chipmunkButton: GlobalButton!
+    @IBOutlet weak var vaderButton: GlobalButton!
     @IBOutlet weak var micButton: GlobalButton!
-    
+    @IBOutlet weak var fxLabel: UILabel!
+
     var audioURL:URL!
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
@@ -27,11 +27,11 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     var activeButton: UIButton!
     
     enum SoundFx: Int{ case slow = 0, fast, reverb, echo, chipmunk, vader}
+    var fxButtons = [GlobalButton]()
     
-    @IBAction func fxPressed(_ sender: UIButton){
+    @IBAction func fxPressed(_ sender: GlobalButton){
         switch(SoundFx(rawValue: sender.tag)!){
         case .slow:
-            print("play slow")
             audioPlayOrStop(rate: 0.5, pitch: nil, fx: .slow, button: sender)
         case .fast:
             audioPlayOrStop(rate: 1.5, pitch: nil, fx: .fast, button: sender)
@@ -46,40 +46,51 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    @IBAction func micButtonPressed(_ sender: Any) {
+    @IBAction func micButtonPressed(_ sender: GlobalButton) {
         stopAudio(fromButton: true)
-        animateButtons(button: micButton)
+        sender.fadeButton(fadeIn: false, delay: 0, useCompleteHandler: false)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    func audioPlayOrStop(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
+    func audioPlayOrStop(rate: Float?, pitch: Float?, fx: SoundFx, button: GlobalButton){
         if button.alpha == 1{
             playAudio(rate: rate, pitch: pitch, fx: fx, button: button)
             button.alpha = 0.6
-            animateButtons(button: button)
+            button.animateButton()
             activeButton = button
-            print("BUTTON alpha=1 - playadio")
         }else{
             stopAudio(fromButton: true);
             button.alpha = 1
             button.layer.removeAllAnimations()
-            activeButton = UIButton()
+            activeButton = GlobalButton()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        fxButtons = [slowButton, fastButton, reverbButton, echoButton, chipmunkButton, vaderButton]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.setHidesBackButton(true, animated:true);
+        animateButtons(fxButtons: fxButtons, delay: 0)
+        animateButtons(fxButtons: [micButton], delay: 0.6)
     }
     
-    func playAudio(rate: Float?, pitch: Float?, fx: SoundFx, button: UIButton){
+    func animateButtons(fxButtons: [GlobalButton], delay: Double){
+        for button in fxButtons{
+            button.alpha = 1
+            button.transform = CGAffineTransform(scaleX: 0, y: 0)
+        }
+        
+        for button in fxButtons{
+            button.fadeButton(fadeIn: true, delay: delay, useCompleteHandler: false)
+        }
+    }
+    
+    func playAudio(rate: Float?, pitch: Float?, fx: SoundFx, button: GlobalButton){
         audioEngine = AVAudioEngine()
         audioPlayerNode = AVAudioPlayerNode()
-        
         audioEngine.attach(audioPlayerNode)
         
         //get audiofile and set playback buffer
@@ -110,7 +121,7 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
             echoNode.loadFactoryPreset(.multiEcho1)
             connectAudioNodes(fxNode: echoNode, audioPlayerNode: audioPlayerNode, buffer: buffer)
         }
-        //audioPlayerNode.stop()
+
         audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[]){
             /* for udacity review: this is a completion handler gets called when sounds finished playing. as expected
              So i use a direct method call and skip skip the time calculation via length, sampleTime, Bitrate...
@@ -118,7 +129,7 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
              */
             DispatchQueue.main.async {
                 //self.stopAudio(fromButton: false) // no need to call stop, scheduleBuffer resets buffer and plays the new sound
-                self.toggleButton(button: button)
+                button.resetButton()
                 print("stopped from buffer/ no stop fx gets called")
             }
         }
@@ -127,7 +138,6 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         do {
             try audioEngine.start()
         } catch {
-            print("nope start engine")
             return
         }
         audioPlayerNode.volume = 1
@@ -135,31 +145,15 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @objc func stopAudio(fromButton: Bool){
-        //stop only from stopButton,
         if fromButton == true {
             if let audioEngine = audioEngine{
                 if let audioPlayerNode = audioPlayerNode{
-                     print("stop audio from BUTTIN")
                     audioPlayerNode.reset()
                     audioEngine.stop()
                     audioEngine.reset()
                 }
             }
         }
-    }
-    
-    func animateButtons(button: UIButton){
-        button.layer.removeAllAnimations()
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
-            button.alpha = 0.1
-            button.transform = CGAffineTransform(scaleX: 0.875, y: 0.86)
-        })
-    }
-    
-    func toggleButton(button: UIButton){
-        button.alpha = 1
-        button.layer.removeAllAnimations()
-        button.transform = CGAffineTransform(scaleX: 1, y: 1)
     }
     
     func connectAudioNodes(fxNode: AVAudioNode,audioPlayerNode: AVAudioPlayerNode,  buffer: AVAudioPCMBuffer? ) {

@@ -16,14 +16,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var audioRecorder: AVAudioRecorder!
     var recordingSession: AVAudioSession!
-
-    enum RecordState{ case record, stop, pause, noPermit, failed}
-    enum AimationComplete: Int{ case record = 0, fadeIn, none}
     var recordStartText: String = "press mic to record";
     var recordStopText: String = " .... recording ....";
     var recordNoPermitText: String = "You have to allow using the Mic";
     var recordFailedText: String = "Recording failed, please try again";
     
+    enum RecordState{ case record, stop, pause, noPermit, failed}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,20 +31,18 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.setHidesBackButton(true, animated:true);
-        
         setupUI()
     }
     
     @IBAction func recordAudio(_ sender: UIButton) {
-        print("mic button pressed")
        sender.isSelected = !sender.isSelected
         
         if sender.isSelected{
-            recordingStatus(RecordState.record)
             recordAudio()
+            recordingStatus(RecordState.record)
         }else{
-            recordingStatus(RecordState.stop)
             audioRecorder.stop()
+            recordingStatus(RecordState.stop)
             let audioSession = AVAudioSession.sharedInstance()
             try! audioSession.setActive(false)
         }
@@ -57,8 +53,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = "recordedAudio.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
-        let settings = [
-                        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+        let settings = [AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
                         AVEncoderBitRateKey: 256000,
                         AVNumberOfChannelsKey: 2,
                         AVSampleRateKey: 44100.0] as [String : Any]
@@ -67,19 +62,17 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
             try recordingSession.setActive(true)
-            try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
+            try! audioRecorder = AVAudioRecorder(url: filePath!, settings: settings)
 
             recordingSession.requestRecordPermission() { [unowned self] allowed in
                 DispatchQueue.main.async {
                     if allowed {
-                       print("allowed to record")
                         self.audioRecorder.isMeteringEnabled = true
                         self.audioRecorder.delegate = self as AVAudioRecorderDelegate
                         self.audioRecorder.prepareToRecord()
                         self.audioRecorder.record()
                         
                     } else {
-                        // failed to record!
                         self.recordingStatus(RecordState.noPermit)
                     }
                 }
@@ -95,9 +88,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             recordLabel.text = recordStopText
             micButton.changeButtonImage(imageName: "mic-stop", useCompleteHandler: true)
         case .stop:
-            micButton.fadeButton(fadeIn: false, useCompleteHandler: false)
-            //nothing to do much
-            // break
+            micButton.fadeButton(fadeIn: false, delay: 0, useCompleteHandler: false)
         case .pause:
              print("pause")
         case .noPermit:
@@ -111,53 +102,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    func fadeOut(){
-        
-        /*
-        UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseIn, .curveEaseInOut, .allowUserInteraction], animations: {
-            self.micButton.alpha = 0
-            self.micButton.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
-        }, completion: { (complete: Bool) in
-            if let image = UIImage(named: "mic-stop") {
-                self.micButton.setImage(image, for: .normal)
-            }
-            self.fadeIn()
-        })
-        */
-    }
-    
-    func fadeIn(){
-         /*
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn, .curveEaseInOut, .allowUserInteraction], animations: {
-            self.micButton.alpha = 1
-            self.micButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }, completion: { (complete: Bool) in
-            self.animateRecording()
-        })
-         */
-    }
-    
-    func animateRecording(){
-        /*
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
-            self.micButton.alpha = 0.3
-            self.micButton.transform = CGAffineTransform(scaleX: 0.775, y: 0.775)
-        }, completion: { (complete: Bool) in
-            print("complete")
-        })
-        */
-    }
-    
     func setupUI(){
         recordLabel.text = recordStartText
         micButton.alpha = 0
         micButton.transform = CGAffineTransform(scaleX: 0, y: 0)
         micButton.changeButtonImage(imageName: "microphone2x-iphone", useCompleteHandler: false)
-                
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("finish recording")
         if flag {
             performSegue(withIdentifier: "PlaybackSegue", sender: audioRecorder.url)
         }else{
