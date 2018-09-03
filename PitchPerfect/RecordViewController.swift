@@ -25,7 +25,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,8 +35,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func recordAudio(_ sender: UIButton) {
        sender.isSelected = !sender.isSelected
-        //one button for record/stop
-        if sender.isSelected{
+        
+        if sender.isSelected{ //one button for record/stop
             recordAudio()
             recordingStatus(RecordState.record)
         }else{
@@ -48,17 +47,37 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    func recordingStatus(_ state: RecordState ){
+        switch state {
+        case .record:
+            recordLabel.text = recordStopText
+            micButton.changeButtonImage(imageName: "mic-stop", useCompleteHandler: true)
+        case .stop:
+            micButton.fadeButton(fadeIn: false, delay: 0, useCompleteHandler: false)
+        case .pause:
+            print("pause")
+        case .noPermit:
+            recordLabel.text = recordNoPermitText
+            micButton.layer.removeAllAnimations()
+            micButton.alpha = 0.2
+        case .failed:
+            recordLabel.text = recordFailedText
+            micButton.layer.removeAllAnimations()
+            micButton.alpha = 0.2
+        }
+    }
+    
     func recordAudio(){
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
         let recordingName = "recordedAudio.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
+        let recordingSession = AVAudioSession.sharedInstance()
         let settings = [AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
                         AVEncoderBitRateKey: 256000,
                         AVNumberOfChannelsKey: 2,
                         AVSampleRateKey: 44100.0] as [String : Any]
-       
-        let recordingSession = AVAudioSession.sharedInstance()
+        
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
             try recordingSession.setActive(true)
@@ -79,26 +98,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }
         } catch {
             recordingStatus(RecordState.failed)
-        }
-    }
-    
-    func recordingStatus(_ state: RecordState ){
-        switch state {
-        case .record:
-            recordLabel.text = recordStopText
-            micButton.changeButtonImage(imageName: "mic-stop", useCompleteHandler: true)
-        case .stop:
-            micButton.fadeButton(fadeIn: false, delay: 0, useCompleteHandler: false)
-        case .pause:
-             print("pause")
-        case .noPermit:
-            recordLabel.text = recordNoPermitText
-            micButton.layer.removeAllAnimations()
-            micButton.alpha = 0.2
-        case .failed:
-            recordLabel.text = recordFailedText
-            micButton.layer.removeAllAnimations()
-            micButton.alpha = 0.2
         }
     }
     

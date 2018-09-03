@@ -24,10 +24,9 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     var audioEngine:AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: Timer!
-    var activeButton: UIButton!
+    var fxButtons = [GlobalButton]()
     
     enum SoundFx: Int{ case slow = 0, fast, reverb, echo, chipmunk, vader}
-    var fxButtons = [GlobalButton]()
     
     @IBAction func fxPressed(_ sender: GlobalButton){
         switch(SoundFx(rawValue: sender.tag)!){
@@ -55,14 +54,12 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     func audioPlayOrStop(rate: Float?, pitch: Float?, fx: SoundFx, button: GlobalButton){
         if button.alpha == 1{
             playAudio(rate: rate, pitch: pitch, fx: fx, button: button)
-            button.alpha = 0.6
+            button.alpha = 0.9
             button.animateButton()
-            activeButton = button
         }else{
             stopAudio(fromButton: true);
             button.alpha = 1
             button.layer.removeAllAnimations()
-            activeButton = GlobalButton()
         }
     }
     
@@ -74,7 +71,7 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationItem.setHidesBackButton(true, animated:true);
         animateButtons(fxButtons: fxButtons, delay: 0)
-        animateButtons(fxButtons: [micButton], delay: 0.6)
+        animateButtons(fxButtons: [micButton], delay: 0.4)
     }
     
     func animateButtons(fxButtons: [GlobalButton], delay: Double){
@@ -123,12 +120,12 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         }
 
         audioPlayerNode.scheduleBuffer(buffer!, at: nil, options:[]){
-            /* for udacity review: this is a completion handler gets called when sounds finished playing. as expected
+            /* this completion handler gets called when sounds finished playing.
              So i use a direct method call and skip skip the time calculation via length, sampleTime, Bitrate...
              scheduleBuffer(file... seems to call it right away
              */
             DispatchQueue.main.async {
-                //self.stopAudio(fromButton: false) // no need to call stop, scheduleBuffer resets buffer and plays the new sound
+                //self.stopAudio(fromButton: false) //no need to call stop, scheduleBuffer resets buffer and plays the new sound
                 button.resetButton()
             }
         }
@@ -160,15 +157,4 @@ class PitchViewController: UIViewController, AVAudioPlayerDelegate {
         audioEngine.connect(audioPlayerNode, to: fxNode, format: audioFile.processingFormat)
         audioEngine.connect(fxNode, to: audioEngine.mainMixerNode, format: buffer?.format)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
