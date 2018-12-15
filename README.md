@@ -1,5 +1,6 @@
 # PitchPerfect
 Udacity Course App
+Record your Voice and Playback With Effects.
 
 ## Synopsis
 This is a training course app from the Udacity iOs Developer Programm.
