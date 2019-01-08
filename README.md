@@ -1,20 +1,24 @@
 # PitchPerfect
 Record your Voice and Playback With Effects.
-Udacity Course App.
 
-## Synopsis
-This is a training course app from the Udacity iOs Developer Programm.
-This app was build to learn basic ios technics.
+This is a portofolio app from the Udacity iOs Developer Programm.
 
 Audio Processing with AVFoundation
 Basic Segue & Delegate Technics
 Enums, Switches, Closures, Buttons
 
-It is build for learning and training purposes.
+## Build with
+* Xcode 9
+* Swift 4
 
-## Status
-This app works as described in the Udacity Course & passed the code review
+## Installation
+1. Download Zip file and open PitchPerfect.xcodeproj
+2. Chose build target iOS Simulator or iPhone
+3. Run app by selecting Build button or Command + R
 
-## Licence
-Public Domain License. Feel free to do what ever you want
+## Licensing:
+Public Domain
+
+## Acknowledgments
+[Udacity iOS Developer Nanodegree](https://eu.udacity.com/course/ios-developer-nanodegree--nd003)
 
